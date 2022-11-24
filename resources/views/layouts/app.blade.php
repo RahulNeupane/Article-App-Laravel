@@ -12,24 +12,33 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-5 py-3 mb-5">
         <div class="container-fluid">
-            <a href="{{route('dashboard')}}" class="navbar-brand">Article</a>
+            <a href="{{ route('dashboard') }}" class="navbar-brand">Article</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="{{route('dashboard')}}" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('login')}}" class="nav-link">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('register')}}" class="nav-link">Register</a>
-                    </li>
+                    @auth
+                        <li class="nav-item">
+                            <p class="text-white nav-link me-5">Hello {{ auth()->user()->name }}</p>
+                        </li>
+                        <p></p>
+                        <form action="{{route('logout')}}" method="GET">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    @endauth
+                    @guest
+                        <li class="nav-item">
+                            <a href="{{ route('login') }}" class="nav-link">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('register') }}" class="nav-link">Register</a>
+                        </li>
+                    @endguest
                 </ul>
-              </div>
+            </div>
         </div>
     </nav>
 
