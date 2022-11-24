@@ -14,10 +14,17 @@ use App\Http\Controllers\UserController;
 |
 */
 
+// Route::get('/',[HomeController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 
-Route::get('/',[HomeController::class, 'dashboard'])->name('dashboard');
+
 Route::get('/register',[HomeController::class, 'register'])->name('register');
 Route::get('/login',[HomeController::class, 'login'])->name('login');
 
 Route::post('/registerUser',[UserController::class, 'registerUser'])->name('register-user');
 Route::post('/loginUser',[UserController::class, 'loginUser'])->name('login-user');
+Route::get('/logout',[UserController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/',[HomeController::class, 'dashboard'])->name('dashboard');
+
+});

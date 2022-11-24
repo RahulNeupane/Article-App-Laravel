@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -21,7 +22,7 @@ class UserController extends Controller
             'password' =>Hash::make( $request->password),
         ]);
 
-        return redirect('/login');
+        return redirect()->route('login');
     }
 
     public function loginUser(Request $request){
@@ -30,7 +31,16 @@ class UserController extends Controller
             'password'=>'required',
         ]);
 
-        dd($request);
+        if(Auth::attempt($request->only('email','password'))){
+            return redirect()->route('dashboard');
+        }else{
+            return back()->with('fail','email or password invalid !');
+        }
 
+    }
+
+    public function logout(){
+        auth()->logout();
+        return redirect()->route('login');
     }
 }
