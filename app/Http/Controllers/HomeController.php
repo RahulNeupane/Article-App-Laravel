@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function dashboard(){
-        $posts = Post::all();
+        $posts = Post::where('user_id','=',auth()->user()->id)->get();
         return view('dashboard',compact('posts'));
     }
     public function register(){
