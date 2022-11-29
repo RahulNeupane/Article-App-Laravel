@@ -23,7 +23,7 @@
                         <li class="nav-item">
                             <p class="text-white nav-link me-5">Hello {{ auth()->user()->name }}</p>
                         </li>
-                        <p></p>
+                        
                         <form action="{{route('logout')}}" method="GET">
                             @csrf
                             <button type="submit" class="btn btn-danger">Logout</button>
